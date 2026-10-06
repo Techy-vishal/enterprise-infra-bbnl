@@ -1,0 +1,27 @@
+pool:
+  name: Project-Vibes
+
+trigger:
+  - main
+  - feature/*
+
+stages:
+  - stage: ValidateAndPlanStage
+    displayName: Validate and Plan Stage
+    jobs:
+      - job: PlanJob
+        displayName: Plan
+        steps:
+          - task: TerraformTask@5
+            displayName: Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendAzureRmResourceGroupName: 'rg-bbnl-dev'
+              backendAzureRmStorageAccountName: 'projectvibes'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+
+
+
+  
